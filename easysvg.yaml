@@ -1,0 +1,9 @@
+enabled: true
+container_attributes: 'width="0" height="0" style="position:absolute;"'
+remove:
+  - dimensions: true
+  - script_elements: true
+domains_allowed:
+  - example.com
+prefix: 'symbol'
+write_with_php_dom: false

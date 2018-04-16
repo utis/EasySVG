@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="500"
+     height="500"
+     viewBox="0 0 20 20">
+  <circle cx="10" cy="10" r="9.5" stroke="black" stroke-width="1" fill="yellow"/>
+  <circle cx="6" cy="7" r="1.5" fill="black"/>
+  <circle cx="14" cy="7" r="1.5" fill="black"/>
+  <image xlink:href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Teeth_by_David_Shankbone.jpg/320px-Teeth_by_David_Shankbone.jpg" width="10" height="5.2" x="5" y="11"/>
+</svg>
+

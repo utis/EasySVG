@@ -1,0 +1,27 @@
+name: EasySVG
+version: 0.1.0
+description: Makes using SVG in symbols easier.
+icon: plug
+author:
+  name: Oliver Scholz
+  email: oliver.scholz@sirenensang.de
+homepage: https://github.com/oliver-scholz/grav-plugin-svg-symbols
+demo: http://demo.yoursite.com
+keywords: grav, plugin, etc
+bugs: https://github.com/oliver-scholz/grav-plugin-svg-symbols/issues
+docs: https://github.com/oliver-scholz/grav-plugin-svg-symbols/blob/develop/README.md
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
