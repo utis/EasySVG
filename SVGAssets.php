@@ -190,6 +190,17 @@ class SVGAssets {
         return $doc;
     }
 
+    // Remove script elements.
+    // Please note: This is meant as a precaution against shooting yourself
+    // into the foot. It's not a real security measure against malicious
+    // attacks. Only use trusted SVG.
+    protected function removeScriptElements ($doc) {
+        foreach ($doc->documentElement->getElementsByTagName('script') as $e) {
+            $e->parentNode->removeChild($e);
+        }
+        return $doc;
+    }
+
     // Apply various manipulations to DOMDocument $doc.
     // Returns $doc.
     protected function processSVG ($doc) {
@@ -198,6 +209,7 @@ class SVGAssets {
 
         $doc = $this->updateXLinks($doc, $xp);
         $doc = $this->removeViewbox($doc);
+        $doc = $this->removeScriptElements($doc);
         // ... more to come
         return $doc;
     }

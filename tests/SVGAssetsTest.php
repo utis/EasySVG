@@ -37,7 +37,8 @@ class SVGAssetsTest extends XmlTestCase
         "theme://images/smiley.svg",
         "theme://images/smiley-double.svg",
         "theme://images/smiley-photo-abs.svg",
-        "theme://images/smiley-photo-abs-wrong.svg"
+        "theme://images/smiley-photo-abs-wrong.svg",
+        "theme://images/smiley-evil.svg"
     ];
 
     protected $svg;
@@ -179,6 +180,34 @@ class SVGAssetsTest extends XmlTestCase
                             "Wrong viewBox or no viewBox on <svg><use>");
     }
 
+    public function testUseClasses () {
+        $xml = $this->svg->use('smiley', 'harpo groucho chico');
+        $xp = $this->getUseXPath($xml);
+        $r = $xp->evaluate("string(/svg/@class)");
+
+        $this->assertEquals("harpo groucho chico",
+                            $r,
+                            "Incorrect class on <svg><use>");
+    }
+
+    public function testUseAttributes () {
+        $xml = $this->svg->use('smiley', [
+            'class' => 'groucho',
+            'data-test' => 'chico'
+        ]);
+        $xp = $this->getUseXPath($xml);
+        $r = $xp->evaluate("string(/svg/@class)");
+
+        $this->assertEquals("groucho",
+                            $r,
+                            "Incorrect attribute setting on <svg><use>");
+
+        $r = $xp->evaluate("string(/svg/@data-test)");
+        $this->assertEquals("chico",
+                            $r,
+                            "Incorrect attribute setting on <svg><use>");
+    }
+
 
     public function testXlinkAbsolute () {
         $this->assertXpathMatch(
@@ -197,7 +226,42 @@ class SVGAssetsTest extends XmlTestCase
         );
     }
 
-    // Test: inserting classes/attributes with use(), setting/removing attributes, implement&test: escaping quotation marks when writing XML, implement: checking for existing ids and warn, implement&test: keeping namespaces other than svg and xlink, implement&test: external URLs, implement&test: remove script elements, implement&test: add directory; implement&test: remove dimensions
+    public function testSetAttributeSet () {
+        $this->svg->setAttribute('smiley', '//circle[1]', 'fill', 'red');
+        $this->assertXpathMatch('red',
+                                "string(/svg/symbol[@id='symbol-smiley']/circle[@id='cic']/@fill)",
+                                "Incorrect result from setAttribute()");
+    }
+
+    public function testSetAttributeRemove () {
+        $this->svg->setAttribute('smiley', '//circle[1]', 'fill', false);
+        $this->assertXpathMatch('',
+                                "string(/svg/symbol[@id='symbol-smiley']/circle[@id='cic']/@fill)",
+                                "Incorrect result from setAttribute()");
+    }
+
+    public function testRemoveAttributeArg () {
+        $this->svg->removeAttribute('smiley', '//circle[1]', 'fill');
+        $this->assertXpathMatch('',
+                                "string(/svg/symbol[@id='symbol-smiley']/circle[@id='cic']/@fill)",
+                                "Incorrect result from removeAttribute()");
+    }
+
+    public function testRemoveAttributeNoArg () {
+        $this->svg->removeAttribute('smiley', '//circle[1]/@fill');
+        $this->assertXpathMatch('',
+                                "string(/svg/symbol[@id='symbol-smiley']/circle[@id='cic']/@fill)",
+                                "Incorrect result from removeAttribute()");
+    }
+
+    public function testDeletedScriptElements () {
+        $this->assertXpathMatch('',
+                                "string(/svg/symbol[@id='symbol-smiley-evil']//script)",
+                                "Incorrect result from removeAttribute()");
+    }
+
+
+    // implement&test: escaping quotation marks when writing XML, implement: checking for existing ids and warn, implement&test: keeping namespaces other than svg and xlink, implement&test: external URLs, implement&test: remove script elements, implement&test: add directory; implement&test: remove dimensions
 
     // public function testSetAttribute () {
 

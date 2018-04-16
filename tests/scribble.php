@@ -53,18 +53,19 @@ $svg2 = <<<EOF
 </svg>
 EOF;
 
-$path = __DIR__ . "/test.svg";
+$path = __DIR__ . "/tests/smiley.svg";
 $doc = new DOMDocument();
-// $doc->loadXML($svg2);
-$doc->load($path);
+$doc->loadXML($svg2);
+// $doc->load($path);
 $xpath = new DOMXPath ($doc);
 
 
 // $exp = "string(/svg/@viewBox)";
-$exp = "string(/svg/image/@xlink:href)";
+$exp = "string(/svg/path/@id)";
 
 $res = $xpath->evaluate($exp);
 var_dump($res);
+echo '-------', PHP_EOL;
 
 if (gettype($res) == 'object' && get_class($res) == 'DOMNodeList') {
     foreach ($res as $e) {

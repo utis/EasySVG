@@ -9,11 +9,14 @@
       <stop offset="100%" stop-color="#Fa0"/>
     </radialGradient>
   </defs>
-  <circle id="cic" cx="7.5" cy="7.5" r="7" stroke-width="1"
+  <circle cx="7.5" cy="7.5" r="7" stroke-width="1"
 	  fill="url(#rg)" stroke="black" />
   <circle cx="4.5" cy="5.5" r="1" fill="black"/>
   <circle cx="10.5" cy="5.5" r="1" fill="black"/>
 
   <path stroke-width="1" stroke="black" fill="none"
 	d="M4 8.5 C5 12, 10 12, 11 8.5"/>
+  <path stroke-width="1" stroke="black" fill="none"
+	d="M3.6 3.7 L7.5 6.3 L11.4 3.7"/>
+  <script>alert("Give me all your passwords!!!");</script>
 </svg>
