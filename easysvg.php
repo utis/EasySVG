@@ -30,12 +30,9 @@ class EasySVGPlugin extends Plugin
             return;
         }
 
-        // $url_h = new EasySVGURLs ($this->grav['locator'],
-        //                           $this->grav['base_url']);
         $interface = new EasySVGAccess ($this->grav, $this->config);
 
         require_once __DIR__ . '/SVGAssets.php';
-        // $this->svg = new SvgAssets ($url_h, $this->config, $this->grav['log']);
         $this->svg = new \SVGAssets ($interface);
     }
 
