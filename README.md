@@ -1,5 +1,71 @@
 # Svg Symbols Plugin
 
+> NOTE: Be advised that this plugin is in alpha status and not yet extensively tested.
+
+Inline SVG in an HTML5 document has some important advantages:
+
+- You save on `http` requests which can matter quickly if you're using a
+  lot of SVG icons, for instance.
+  
+- You can style your SVG with CSS.
+
+And since you can reference SVG elements across your HTML5 document with
+SVG's `use` element, you can display them multiple times without creating
+additional bandwidth.
+
+A good way to do this is to put an SVG block at the beginning of your
+document that includes the graphical elements you want to use in `symbol`
+elements. For instance:
+
+```HTML
+<!-- Begin SVG definition block -->
+<svg>
+  <defs>
+    <!-- Define e.g. gradients here -->
+  </defs>
+  <symbol id="one">
+    <!-- Your SVG here -->
+  </symbol>
+  <symbol id="two">
+    <!-- Your second SVG here -->
+  </symbol>
+  <!-- etc. -->
+</svg>
+<!-- End SVG definition block -->
+
+<!-- Then use them in the document. -->
+<svg viewBox="0 0 300 150">
+  <use xlink:href="one"/>
+</svg>
+```
+
+While this is absolutely wonderful and powerful from a technical point of
+view, doing this manually can become somewhat tiresome:
+
+- You probably want to create your SVGs separately in a vector graphics
+  program like Inkscape or Illustrator. That means you have to create the
+  definition block from the individual files. This can be done
+  automatically with a task manager or even a shell script, _but:_
+
+- There is some quirkyness about the placement of the `viewBox` attribute;
+  if you want to scale your SVG graphics in CSS by only defining _either_
+  `width` _or_ `height`, with the other dimension scaling accordingly, you
+  need to define the `viewBox` on the _referencing_ `svg` element as in the
+  example above. That means you have to keep track of the appropriate
+  viewbox dimensions for your SVGs.
+  
+- If you use `defs`, like for instance, gradients to be referenced in the
+  `fill` attribute, you have to move this `defs` element out of your
+  original SVG to the top of the definition block, as in the example above.
+  
+_This is where EasySVG come in. It provides methods to be used in Twig that
+do the work behind the scenes. You just define what SVG files you want to
+use, and then reference your SVGs by an ID of your choice._
+
+In addition, EasySVG provides a few selected methods for deleting SVG
+elements and attributes that might make some editing tasks easier (see
+below).
+
 <!-- **This README.md file should be modified to describe the features, installation, configuration, and general usage of this plugin.** -->
 
 The **Svg Symbols** Plugin is for [Grav CMS](http://github.com/getgrav/grav).
